@@ -9,15 +9,23 @@ import java.util.ArrayList;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     private ArrayList<String> data;
+    private static ClickListener listener;
+
+    public interface ClickListener
+    {
+        void click(int index);
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
         private final TextView textView;
+        View view;
 
-        public ViewHolder(View view)
+        public ViewHolder(View itemView)
         {
-            super(view);
-            textView = (TextView) view.findViewById(R.id.textView);
+            super(itemView);
+            textView = (TextView) itemView.findViewById(R.id.textView);
+            view = itemView;
         }
 
         public TextView getTextView()
@@ -26,9 +34,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         }
     }
 
-    public MainAdapter(ArrayList data)
+    public MainAdapter(ArrayList data, ClickListener listener)
     {
         this.data = data;
+        this.listener = listener;
     }
 
     @Override
@@ -40,6 +49,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.getTextView().setText(data.get(position));
+
+        holder.view.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                listener.click(holder.getAdapterPosition());
+            }
+        });
     }
 
     @Override

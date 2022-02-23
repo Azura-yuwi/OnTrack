@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     MainAdapter adapter;
     RecyclerView recyclerView;
     ArrayList<String> data = new ArrayList<>();
+    MainAdapter.ClickListener listener;
 
     private static final int NEW_EVENT_REQUEST_CODE = 0;
 
@@ -29,16 +30,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        adapter = new MainAdapter(data);
+        listener = new MainAdapter.ClickListener() {
+            @Override
+            public void click(int index) {
+                Intent intent = new Intent(MainActivity.this, NewEventPage.class);
+                editEvents.launch(intent);
+            }
+        };
+        adapter = new MainAdapter(data, listener);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         recyclerView.setAdapter(adapter);
     }
 
-
     public void send(View view)
     {
         Intent intent = new Intent(this, NewEventPage.class);
-        //startActivityForResult(intent, NEW_EVENT_REQUEST_CODE);
         launchNewEventPage.launch(intent);
     }
 
@@ -56,20 +62,18 @@ public class MainActivity extends AppCompatActivity {
         }
     });
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent)
-    {
-        super.onActivityResult(requestCode, resultCode, intent);
-
-        if(requestCode == NEW_EVENT_REQUEST_CODE)
+    ActivityResultLauncher<Intent> editEvents = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result)
         {
-            if(resultCode == RESULT_OK)
+            if(result.getResultCode() == 0)
             {
-                String returnString = intent.getStringExtra("make_new");
+                Intent dataIntent = result.getData();
+                String returnString = dataIntent.getStringExtra("edit");
                 data.add(returnString);
                 adapter.notifyItemChanged(data.size() - 1);
             }
         }
-    }
+    });
+
 }
