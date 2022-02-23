@@ -23,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> data = new ArrayList<>();
     MainAdapter.ClickListener listener;
 
-    private static final int NEW_EVENT_REQUEST_CODE = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +31,11 @@ public class MainActivity extends AppCompatActivity {
         listener = new MainAdapter.ClickListener() {
             @Override
             public void click(int index) {
-                Intent intent = new Intent(MainActivity.this, NewEventPage.class);
-                editEvents.launch(intent);
+                Intent intent = new Intent(MainActivity.this, DisplayEvent.class);
+                String name = data.get(index);
+                intent.putExtra("event_name", name);
+                intent.putExtra("position", index);
+                seeEvents.launch(intent);
             }
         };
         adapter = new MainAdapter(data, listener);
@@ -62,16 +63,25 @@ public class MainActivity extends AppCompatActivity {
         }
     });
 
-    ActivityResultLauncher<Intent> editEvents = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+    ActivityResultLauncher<Intent> seeEvents = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result)
         {
-            if(result.getResultCode() == 0)
+            int resultCode = result.getResultCode();
+            if(resultCode == 0)
             {
                 Intent dataIntent = result.getData();
-                String returnString = dataIntent.getStringExtra("edit");
-                data.add(returnString);
-                adapter.notifyItemChanged(data.size() - 1);
+                String returnString = dataIntent.getStringExtra("edit_name");
+                int position = dataIntent.getIntExtra("position", 0);
+                data.set(position, returnString);
+                adapter.notifyItemChanged(position);
+            }
+            else if(resultCode == 2)
+            {
+                Intent dataIntent = result.getData();
+                int position = dataIntent.getIntExtra("position", 0);
+                data.remove(position);
+                adapter.notifyItemRemoved(position);
             }
         }
     });

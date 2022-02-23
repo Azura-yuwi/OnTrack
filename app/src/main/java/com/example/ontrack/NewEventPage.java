@@ -9,11 +9,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class NewEventPage extends AppCompatActivity {
+    private int pass_type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_event_page);
+
+        Intent intent = getIntent();
+        pass_type = intent.getIntExtra("pass_type", 0);
+
+        if(pass_type == 1)
+        {
+            EditText editText = (EditText) findViewById(R.id.etEventName);
+            editText.setText(intent.getStringExtra("event_name"));
+        }
     }
 
     public void save(View view)
@@ -21,7 +31,16 @@ public class NewEventPage extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.etEventName);
         String toPassBack = editText.getText().toString();
         Intent intent = new Intent();
-        intent.putExtra("make_new", toPassBack);
+
+        if(pass_type == 1)
+        {
+            intent.putExtra("edit", toPassBack);
+        }
+        else
+        {
+            intent.putExtra("make_new", toPassBack);
+        }
+
         setResult(RESULT_OK, intent); //RESULT_OK = -1 i believe
         finish();
     }
