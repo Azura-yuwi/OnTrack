@@ -3,10 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Sophi/AndroidStudioProjects/OnTrack/app/src/main/res/layout/activity_display_event2.xml" value="0.75" />
+        <entry key="..\:/Users/Sophi/AndroidStudioProjects/OnTrack/app/src/main/res/layout/activity_display_event2.xml" value="0.9" />
         <entry key="..\:/Users/Sophi/AndroidStudioProjects/OnTrack/app/src/main/res/layout/activity_main.xml" value="0.44315992292870904" />
-        <entry key="..\:/Users/Sophi/AndroidStudioProjects/OnTrack/app/src/main/res/layout/activity_new_event_page.xml" value="0.1" />
-        <entry key="..\:/Users/Sophi/AndroidStudioProjects/OnTrack/app/src/main/res/layout/text_row_item.xml" value="2.5142857142857142" />
+        <entry key="..\:/Users/Sophi/AndroidStudioProjects/OnTrack/app/src/main/res/layout/activity_new_event_page.xml" value="0.5" />
+        <entry key="..\:/Users/Sophi/AndroidStudioProjects/OnTrack/app/src/main/res/layout/text_row_item.xml" value="0.4676923076923077" />
       </map>
     </option>
   </component>

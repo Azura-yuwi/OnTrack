@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
-    private ArrayList<String> data;
+    private ArrayList<Event> data;
     private static ClickListener listener;
 
     public interface ClickListener
@@ -48,7 +48,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.getTextView().setText(data.get(position));
+        Event event = data.get(position);
+        holder.getTextView().setText(event.name);
 
         holder.view.setOnClickListener(new View.OnClickListener(){
             @Override

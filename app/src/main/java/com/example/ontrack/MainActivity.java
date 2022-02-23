@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     MainAdapter adapter;
     RecyclerView recyclerView;
-    ArrayList<String> data = new ArrayList<>();
+    ArrayList<Event> data = new ArrayList<>();
     MainAdapter.ClickListener listener;
 
     @Override
@@ -32,8 +32,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void click(int index) {
                 Intent intent = new Intent(MainActivity.this, DisplayEvent.class);
-                String name = data.get(index);
+                Event event = data.get(index);
+                String name = event.name;
+                String des = event.description;
                 intent.putExtra("event_name", name);
+                intent.putExtra("event_des", des);
                 intent.putExtra("position", index);
                 seeEvents.launch(intent);
             }
@@ -57,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
             {
                 Intent dataIntent = result.getData();
                 String returnString = dataIntent.getStringExtra("make_new");
-                data.add(returnString);
+                String returnDes = dataIntent.getStringExtra("make_des");
+                data.add(new Event(returnString, returnDes));
                 adapter.notifyItemChanged(data.size() - 1);
             }
         }
@@ -68,12 +72,15 @@ public class MainActivity extends AppCompatActivity {
         public void onActivityResult(ActivityResult result)
         {
             int resultCode = result.getResultCode();
+
             if(resultCode == 0)
             {
                 Intent dataIntent = result.getData();
                 String returnString = dataIntent.getStringExtra("edit_name");
+                String returnDes = dataIntent.getStringExtra("edit_des");
                 int position = dataIntent.getIntExtra("position", 0);
-                data.set(position, returnString);
+                data.get(position).name = returnString;
+                data.get(position).description = returnDes;
                 adapter.notifyItemChanged(position);
             }
             else if(resultCode == 2)

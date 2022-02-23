@@ -22,17 +22,26 @@ public class DisplayEvent extends AppCompatActivity {
         Intent intent = getIntent();
         String name = intent.getStringExtra("event_name");
         index = intent.getIntExtra("position", 0);
+
         TextView textView = (TextView) findViewById(R.id.tvInputEventName);
         textView.setText(name);
+
+        String des = intent.getStringExtra("event_des");
+        TextView textViewDes = (TextView) findViewById(R.id.tvShowInputDescription);
+        textViewDes.setText(des);
     }
 
     public void editEventPage(View view)
     {
         TextView textView = (TextView) findViewById(R.id.tvInputEventName);
         String name = textView.getText().toString();
+        TextView textViewDes = (TextView) findViewById(R.id.tvShowInputDescription);
+        String des = textViewDes.getText().toString();
+
         Intent intent = new Intent(this, NewEventPage.class);
         intent.putExtra("pass_type", 1);
         intent.putExtra("event_name", name);
+        intent.putExtra("event_des", des);
         editEventLaunch.launch(intent);
     }
 
@@ -52,8 +61,10 @@ public class DisplayEvent extends AppCompatActivity {
             {
                 Intent dataIntent = result.getData();
                 String returnString = dataIntent.getStringExtra("edit");
+                String des = dataIntent.getStringExtra("editDes");
                 Intent passBack = new Intent();
                 passBack.putExtra("edit_name", returnString);
+                passBack.putExtra("edit_des", des);
                 passBack.putExtra("position", index);
                 setResult(0, passBack);
                 finish();

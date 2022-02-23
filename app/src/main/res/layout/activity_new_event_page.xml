@@ -49,4 +49,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/tvMakeDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Description"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvEventName"
+        app:layout_constraintTop_toBottomOf="@+id/tvEventName" />
+
+    <EditText
+        android:id="@+id/etmlMakeDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Add Description"
+        android:inputType="textMultiLine"
+        android:minHeight="48dp"
+        app:layout_constraintStart_toStartOf="@+id/etEventName"
+        app:layout_constraintTop_toTopOf="@+id/tvMakeDescription" />
 </androidx.constraintlayout.widget.ConstraintLayout>

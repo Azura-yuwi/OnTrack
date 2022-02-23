@@ -22,23 +22,29 @@ public class NewEventPage extends AppCompatActivity {
         if(pass_type == 1)
         {
             EditText editText = (EditText) findViewById(R.id.etEventName);
+            EditText editDes = (EditText) findViewById(R.id.etmlMakeDescription);
             editText.setText(intent.getStringExtra("event_name"));
+            editDes.setText(intent.getStringExtra("event_des"));
         }
     }
 
     public void save(View view)
     {
         EditText editText = (EditText) findViewById(R.id.etEventName);
-        String toPassBack = editText.getText().toString();
+        EditText editTextDes = (EditText) findViewById(R.id.etmlMakeDescription);
+        String nametoPassBack = editText.getText().toString();
+        String descriptionToPass = editTextDes.getText().toString();
         Intent intent = new Intent();
 
         if(pass_type == 1)
         {
-            intent.putExtra("edit", toPassBack);
+            intent.putExtra("edit", nametoPassBack);
+            intent.putExtra("editDes", descriptionToPass);
         }
         else
         {
-            intent.putExtra("make_new", toPassBack);
+            intent.putExtra("make_new", nametoPassBack);
+            intent.putExtra("make_des", descriptionToPass);
         }
 
         setResult(RESULT_OK, intent); //RESULT_OK = -1 i believe
