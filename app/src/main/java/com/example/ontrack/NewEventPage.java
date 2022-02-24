@@ -26,6 +26,7 @@ public class NewEventPage extends AppCompatActivity implements DatePickerDialog.
         setContentView(R.layout.activity_new_event_page);
         setDate(1,1,1);
         dateToEdit = findViewById(R.id.editTextDate);
+
         dateToEdit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
@@ -45,6 +46,9 @@ public class NewEventPage extends AppCompatActivity implements DatePickerDialog.
             EditText editDes = (EditText) findViewById(R.id.etmlMakeDescription);
             editText.setText(intent.getStringExtra("event_name"));
             editDes.setText(intent.getStringExtra("event_des"));
+            setDate(intent.getIntExtra("make_year", 0), intent.getIntExtra("make_month", 0), intent.getIntExtra("make_day", 0));
+            TextView dateText = (TextView) findViewById(R.id.editTextDate);
+            dateText.setText(intent.getStringExtra("event_date_string"));
         }
     }
 
@@ -77,6 +81,9 @@ public class NewEventPage extends AppCompatActivity implements DatePickerDialog.
         {
             intent.putExtra("edit", nametoPassBack);
             intent.putExtra("editDes", descriptionToPass);
+            intent.putExtra("make_year", year);
+            intent.putExtra("make_month", month);
+            intent.putExtra("make_day", day);
         }
         else
         {
