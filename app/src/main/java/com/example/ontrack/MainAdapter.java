@@ -1,9 +1,12 @@
 package com.example.ontrack;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
@@ -19,12 +22,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder
     {
         private final TextView textView;
+        private final TextView dateText;
         View view;
 
         public ViewHolder(View itemView)
         {
             super(itemView);
             textView = (TextView) itemView.findViewById(R.id.textView);
+            dateText = (TextView) itemView.findViewById(R.id.tvDate);
             view = itemView;
         }
 
@@ -32,6 +37,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         {
             return textView;
         }
+        public TextView getDateText() { return dateText; }
     }
 
     public MainAdapter(ArrayList data, ClickListener listener)
@@ -46,10 +52,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         return new ViewHolder(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Event event = data.get(position);
         holder.getTextView().setText(event.name);
+        holder.getDateText().setText(event.makeDate());
 
         holder.view.setOnClickListener(new View.OnClickListener(){
             @Override

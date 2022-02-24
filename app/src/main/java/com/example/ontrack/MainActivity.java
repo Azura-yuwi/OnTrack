@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     ActivityResultLauncher<Intent> launchNewEventPage = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public void onActivityResult(ActivityResult result)
         {
@@ -61,7 +64,11 @@ public class MainActivity extends AppCompatActivity {
                 Intent dataIntent = result.getData();
                 String returnString = dataIntent.getStringExtra("make_new");
                 String returnDes = dataIntent.getStringExtra("make_des");
+                int year = dataIntent.getIntExtra("make_year", 1);
+                int month = dataIntent.getIntExtra("make_month", 1);
+                int day = dataIntent.getIntExtra("make_day", 1);
                 data.add(new Event(returnString, returnDes));
+                data.get(data.size() - 1).setDate(year, month, day);
                 adapter.notifyItemChanged(data.size() - 1);
             }
         }
