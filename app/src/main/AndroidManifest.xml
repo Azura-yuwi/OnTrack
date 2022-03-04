@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OnTrack">
         <activity
+            android:name=".ColorPickerPage"
+            android:exported="false" />
+        <activity
             android:name=".DisplayEvent"
             android:exported="false" />
         <activity

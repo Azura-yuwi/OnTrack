@@ -1,5 +1,4 @@
 package com.example.ontrack;
-
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         listener = new MainAdapter.ClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NewEventPage.class);
         launchNewEventPage.launch(intent);
     }
+
 
     ActivityResultLauncher<Intent> launchNewEventPage = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @RequiresApi(api = Build.VERSION_CODES.O)

@@ -3,9 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Sophi/AndroidStudioProjects/OnTrack/app/src/main/res/drawable/color_square.xml" value="0.1515" />
+        <entry key="..\:/Users/Sophi/AndroidStudioProjects/OnTrack/app/src/main/res/layout/activity_color_pick.xml" value="0.2808988764044944" />
+        <entry key="..\:/Users/Sophi/AndroidStudioProjects/OnTrack/app/src/main/res/layout/activity_color_picker_page.xml" value="0.26510416666666664" />
         <entry key="..\:/Users/Sophi/AndroidStudioProjects/OnTrack/app/src/main/res/layout/activity_display_event2.xml" value="0.9" />
         <entry key="..\:/Users/Sophi/AndroidStudioProjects/OnTrack/app/src/main/res/layout/activity_main.xml" value="0.44315992292870904" />
-        <entry key="..\:/Users/Sophi/AndroidStudioProjects/OnTrack/app/src/main/res/layout/activity_new_event_page.xml" value="0.33" />
+        <entry key="..\:/Users/Sophi/AndroidStudioProjects/OnTrack/app/src/main/res/layout/activity_new_event_page.xml" value="0.5" />
+        <entry key="..\:/Users/Sophi/AndroidStudioProjects/OnTrack/app/src/main/res/layout/color_box.xml" value="0.1661600810536981" />
         <entry key="..\:/Users/Sophi/AndroidStudioProjects/OnTrack/app/src/main/res/layout/text_row_item.xml" value="0.33" />
       </map>
     </option>

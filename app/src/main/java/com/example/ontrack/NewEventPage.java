@@ -1,21 +1,31 @@
 package com.example.ontrack;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import java.text.DateFormat;
 import java.util.Calendar;
+import android.graphics.Color;
+import com.rarepebble.colorpicker.ColorPickerView;
 
 public class NewEventPage extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
     private int pass_type;
     TextView dateToEdit;
+    TextView colorText;
     int year;
     int month;
     int day;
@@ -26,6 +36,7 @@ public class NewEventPage extends AppCompatActivity implements DatePickerDialog.
         setContentView(R.layout.activity_new_event_page);
         setDate(1,1,1);
         dateToEdit = findViewById(R.id.editTextDate);
+        colorText = findViewById(R.id.tvMakeColor);
 
         dateToEdit.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -55,6 +66,16 @@ public class NewEventPage extends AppCompatActivity implements DatePickerDialog.
     public void setDate(int y, int m, int d)
     {
         year = y; month = m; day = d;
+    }
+
+    public void openColorPicker(View view)
+    {
+        /*
+        ColorPickerDialog cpick = new ColorPickerDialog();
+        cpick.show(getSupportFragmentManager(), "COLOR_PICK");*/
+
+        Intent intent = new Intent(this, ColorPickerPage.class);
+       launchColorPicker.launch(intent);
     }
 
     @Override
@@ -97,4 +118,11 @@ public class NewEventPage extends AppCompatActivity implements DatePickerDialog.
         setResult(RESULT_OK, intent); //RESULT_OK = -1 i believe
         finish();
     }
+
+    ActivityResultLauncher<Intent> launchColorPicker = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if(result.getResultCode() == Activity.RESULT_OK)
+        {
+            Intent dataIntent = result.getData();
+        }
+    });
 }
