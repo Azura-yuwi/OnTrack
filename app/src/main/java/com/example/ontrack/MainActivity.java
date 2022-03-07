@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<Event> data = new ArrayList<>();
     MainAdapter.ClickListener listener;
+    DefaultComparator sort = new DefaultComparator();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
                 int day = dataIntent.getIntExtra("make_day", 1);
                 data.add(new Event(returnString, returnDes, color));
                 data.get(data.size() - 1).setDate(year, month, day);
-                adapter.notifyItemChanged(data.size() - 1);
+                Collections.sort(data, sort);
+                adapter.notifyDataSetChanged();
             }
         }
     });
@@ -106,7 +109,8 @@ public class MainActivity extends AppCompatActivity {
                 data.get(position).name = returnString;
                 data.get(position).description = returnDes;
                 data.get(position).color = color;
-                adapter.notifyItemChanged(position);
+                Collections.sort(data, sort);
+                adapter.notifyDataSetChanged();
             }
             else if(resultCode == 2)
             {
