@@ -38,12 +38,14 @@ public class MainActivity extends AppCompatActivity {
                 Event event = data.get(index);
                 String name = event.name;
                 String des = event.description;
+                int color = event.color;
 
                 intent.putExtra("event_year", event.date.getYear());
                 intent.putExtra("event_month", event.date.getMonthValue()-1);
                 intent.putExtra("event_day", event.date.getDayOfMonth());
                 intent.putExtra("event_date_string", event.makeDate());
 
+                intent.putExtra("event_color", color);
                 intent.putExtra("event_name", name);
                 intent.putExtra("event_des", des);
                 intent.putExtra("position", index);
@@ -72,10 +74,11 @@ public class MainActivity extends AppCompatActivity {
                 Intent dataIntent = result.getData();
                 String returnString = dataIntent.getStringExtra("make_new");
                 String returnDes = dataIntent.getStringExtra("make_des");
+                int color =  dataIntent.getIntExtra("make_color", 0xff000000);
                 int year = dataIntent.getIntExtra("make_year", 1);
                 int month = dataIntent.getIntExtra("make_month", 1);
                 int day = dataIntent.getIntExtra("make_day", 1);
-                data.add(new Event(returnString, returnDes));
+                data.add(new Event(returnString, returnDes, color));
                 data.get(data.size() - 1).setDate(year, month, day);
                 adapter.notifyItemChanged(data.size() - 1);
             }
@@ -94,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent dataIntent = result.getData();
                 String returnString = dataIntent.getStringExtra("edit_name");
                 String returnDes = dataIntent.getStringExtra("edit_des");
+                int color =  dataIntent.getIntExtra("make_color", 0xff000000);
                 int year = dataIntent.getIntExtra("make_year", 1);
                 int month = dataIntent.getIntExtra("make_month", 1);
                 int day = dataIntent.getIntExtra("make_day", 1);
@@ -101,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 data.get(position).setDate(year, month, day);
                 data.get(position).name = returnString;
                 data.get(position).description = returnDes;
+                data.get(position).color = color;
                 adapter.notifyItemChanged(position);
             }
             else if(resultCode == 2)

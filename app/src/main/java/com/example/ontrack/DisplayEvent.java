@@ -17,6 +17,7 @@ public class DisplayEvent extends AppCompatActivity {
     int year;
     int month;
     int day;
+    int color;
     String displayDate;
 
     @Override
@@ -26,6 +27,7 @@ public class DisplayEvent extends AppCompatActivity {
 
         Intent intent = getIntent();
         String name = intent.getStringExtra("event_name");
+        color = intent.getIntExtra("event_color", 0xff000000);
         year = intent.getIntExtra("event_year", 1);
         month = intent.getIntExtra("event_month", 1);
         day = intent.getIntExtra("event_day", 1);
@@ -61,7 +63,7 @@ public class DisplayEvent extends AppCompatActivity {
         intent.putExtra("event_des", des);
 
         intent.putExtra("event_date_string", displayDate);
-
+        intent.putExtra("make_color", color);
         intent.putExtra("make_year", year);
         intent.putExtra("make_month", month);
         intent.putExtra("make_day", day);
@@ -89,11 +91,13 @@ public class DisplayEvent extends AppCompatActivity {
                 int year = dataIntent.getIntExtra("make_year", 1);
                 int month = dataIntent.getIntExtra("make_month", 1);
                 int day = dataIntent.getIntExtra("make_day", 1);
+                int color = dataIntent.getIntExtra("make_color", 0xff000000);
 
                 Intent passBack = new Intent();
                 passBack.putExtra("edit_name", returnString);
                 passBack.putExtra("edit_des", des);
                 passBack.putExtra("position", index);
+                passBack.putExtra("make_color", color);
                 passBack.putExtra("make_year", year);
                 passBack.putExtra("make_month", month);
                 passBack.putExtra("make_day", day);

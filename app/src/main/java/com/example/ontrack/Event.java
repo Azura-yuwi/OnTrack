@@ -1,6 +1,5 @@
 package com.example.ontrack;
 
-
 import android.os.Build;
 import androidx.annotation.RequiresApi;
 
@@ -9,10 +8,12 @@ import java.time.LocalDate;
 import java.time.Month;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
+
 public class Event {
     public String name;
     public String description;
     public LocalDate date;
+    public int color;
 
     public Event(String name)
     {
@@ -23,6 +24,13 @@ public class Event {
     {
         this.name = name;
         this.description = description;
+    }
+
+    public Event(String name, String description, int color)
+    {
+        this.name = name;
+        this.description = description;
+        this.color = color;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

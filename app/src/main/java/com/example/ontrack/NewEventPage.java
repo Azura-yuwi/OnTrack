@@ -6,10 +6,10 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +29,7 @@ public class NewEventPage extends AppCompatActivity implements DatePickerDialog.
     int year;
     int month;
     int day;
+    int colorToSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class NewEventPage extends AppCompatActivity implements DatePickerDialog.
         setDate(1,1,1);
         dateToEdit = findViewById(R.id.editTextDate);
         colorText = findViewById(R.id.tvMakeColor);
+        colorToSet = 0xff000000;
 
         dateToEdit.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -55,8 +57,11 @@ public class NewEventPage extends AppCompatActivity implements DatePickerDialog.
         {
             EditText editText = (EditText) findViewById(R.id.etEventName);
             EditText editDes = (EditText) findViewById(R.id.etmlMakeDescription);
+            int color = intent.getIntExtra("make_color",0xff000000);
+            colorToSet = color;
             editText.setText(intent.getStringExtra("event_name"));
             editDes.setText(intent.getStringExtra("event_des"));
+            findViewById(R.id.button_pick_color).setBackgroundColor(color);
             setDate(intent.getIntExtra("make_year", 0), intent.getIntExtra("make_month", 0), intent.getIntExtra("make_day", 0));
             TextView dateText = (TextView) findViewById(R.id.editTextDate);
             dateText.setText(intent.getStringExtra("event_date_string"));
@@ -75,6 +80,7 @@ public class NewEventPage extends AppCompatActivity implements DatePickerDialog.
         cpick.show(getSupportFragmentManager(), "COLOR_PICK");*/
 
         Intent intent = new Intent(this, ColorPickerPage.class);
+        intent.putExtra("init_color", colorToSet);
        launchColorPicker.launch(intent);
     }
 
@@ -115,6 +121,7 @@ public class NewEventPage extends AppCompatActivity implements DatePickerDialog.
             intent.putExtra("make_day", day);
         }
 
+        intent.putExtra("make_color", colorToSet);
         setResult(RESULT_OK, intent); //RESULT_OK = -1 i believe
         finish();
     }
@@ -123,6 +130,10 @@ public class NewEventPage extends AppCompatActivity implements DatePickerDialog.
         if(result.getResultCode() == Activity.RESULT_OK)
         {
             Intent dataIntent = result.getData();
+            int color = dataIntent.getIntExtra("make_color", 0xFF123454);
+            Button colorButton = (Button) findViewById(R.id.button_pick_color);
+            colorButton.setBackgroundColor(color);
+            colorToSet = color;
         }
     });
 }
